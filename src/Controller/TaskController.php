@@ -40,7 +40,6 @@ class TaskController extends AbstractController
             $task->toggle(false);
             
             $em->persist($task);
-            dd($task);
             $em->flush();
 
             $this->addFlash('success', 'La tâche a été bien été ajoutée.');
