@@ -37,8 +37,7 @@ class TaskController extends AbstractController
         if ($form->isSubmitted() and  $form->isValid()) {
 
             $task->setUser($this->getUser());
-            $task->toggle(false);
-            
+            $task->toggle(false);           
             $em->persist($task);
             $em->flush();
 
