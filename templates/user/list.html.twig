@@ -10,6 +10,7 @@
             Il n'y a pas encore d'utilisateur enregistré. <a href="{{ path('user_create') }}" class="btn btn-warning pull-right">Créer un utilisateur</a>
         </div>
     {% else %}
+        <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
         <div class="row">
             <table class="table">
                 <thead>
