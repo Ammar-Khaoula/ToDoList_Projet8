@@ -56,6 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Task::class)]
+    #[Assert\Valid()]
     private Collection $tasks;
 
     public function __construct()
