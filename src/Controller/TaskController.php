@@ -30,15 +30,17 @@ class TaskController extends AbstractController
     public function createAction(Request $request, EntityManagerInterface $em)
     {
         $task = new Task();
-        
+
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() and  $form->isValid()) {
-            
+
+            $task->setUser($this->getUser());
             $task->toggle(false);
             
             $em->persist($task);
+            dd($task);
             $em->flush();
 
             $this->addFlash('success', 'La tâche a été bien été ajoutée.');
@@ -88,7 +90,7 @@ class TaskController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $task->getId(), $request->request->get('_token'))) {
             $em->remove($task);
             $em->flush();
-            
+
             $this->addFlash('success', 'La tâche a bien été supprimée.');
         }
 
