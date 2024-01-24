@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use App\Repository\UserRepository;
+use Symfony\Component\Security\Core\Security;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -86,12 +87,10 @@ class TaskController extends AbstractController
     #[Route('/tasks/{id}/delete', name: 'task_delete')]
     public function deleteTaskAction(Task $task, Request $request, EntityManagerInterface $em): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $task->getId(), $request->request->get('_token'))) {
             $em->remove($task);
             $em->flush();
 
             $this->addFlash('success', 'La tâche a bien été supprimée.');
-        }
 
         return $this->redirectToRoute('task_list');
     }
