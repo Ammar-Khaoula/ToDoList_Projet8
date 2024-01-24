@@ -59,7 +59,7 @@ class TaskController extends AbstractController
 
         if ($form->isSubmitted() and $form->isValid()) {
 
-            $em->persist($task);
+            //$em->persist($task);
             $em->flush();
             $this->addFlash('success', 'La tâche a bien été modifiée.');
 
@@ -85,7 +85,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/tasks/{id}/delete', name: 'task_delete')]
-    public function deleteTaskAction(Task $task, Request $request, EntityManagerInterface $em): Response
+    public function deleteTaskAction(Task $task, EntityManagerInterface $em): Response
     {
             $em->remove($task);
             $em->flush();
