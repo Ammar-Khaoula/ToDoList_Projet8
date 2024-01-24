@@ -13,16 +13,17 @@
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
+    <div class="col-md-6">
+        <label for="inputUsername">Nom d'utilisateur :</label>
+        <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control m-2" autocomplete="username" required autofocus>
+        <label for="inputPassword">Mot de passe :</label>
+        <input type="password" name="password" id="inputPassword" class="form-control m-2" autocomplete="current-password" required>
 
-    <label for="inputUsername">Nom d'utilisateur :</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Mot de passe :</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Se connecter
-    </button>
+        <button class="btn btn-lg btn-primary m-3" type="submit">
+            Se connecter
+        </button>
+    </div>
 </form>
 {% endblock %}
