@@ -27,6 +27,23 @@ class TaskController extends AbstractController
             ]
         );
     }
+    #[Route('/tasksToDo', name: 'tasks_to_do')]
+    public function tasksToDo(TaskRepository $taskRepository, UserRepository $userRepository): Response
+    {
+        return $this->render('task/list.html.twig', [
+            'tasks' => $taskRepository->findBy(['isDone' => false]),
+            'users' => $userRepository->findAll()
+        ]);
+    } 
+
+    #[Route('/tasksCompleted', name: 'tasks_completed')]
+    public function tasksCompleted(TaskRepository $taskRepository, UserRepository $userRepository): Response
+    {
+        return $this->render('task/list.html.twig', [
+            'tasks' => $taskRepository->findBy(['isDone' => true]),
+            'users' => $userRepository->findAll()
+        ]);
+    }
 
     #[Route('/tasks/create', name: 'task_create')]
     public function createAction(Request $request, EntityManagerInterface $em): Response
@@ -39,7 +56,7 @@ class TaskController extends AbstractController
         if ($form->isSubmitted() and  $form->isValid()) {
 
             $task->setUser($this->getUser());
-            $task->toggle(false);           
+            $task->toggle(false);
             $em->persist($task);
             $em->flush();
 
@@ -87,10 +104,10 @@ class TaskController extends AbstractController
     #[Route('/tasks/{id}/delete', name: 'task_delete')]
     public function deleteTaskAction(Task $task, EntityManagerInterface $em): Response
     {
-            $em->remove($task);
-            $em->flush();
+        $em->remove($task);
+        $em->flush();
 
-            $this->addFlash('success', 'La tâche a bien été supprimée.');
+        $this->addFlash('success', 'La tâche a bien été supprimée.');
 
         return $this->redirectToRoute('task_list');
     }
