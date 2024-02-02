@@ -27,6 +27,7 @@ class TaskController extends AbstractController
             ]
         );
     }
+    
     #[Route('/tasksToDo', name: 'tasks_to_do')]
     public function tasksToDo(TaskRepository $taskRepository, UserRepository $userRepository): Response
     {
