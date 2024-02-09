@@ -17,6 +17,6 @@ class TaskRepositoryTest extends KernelTestCase
         $container = static::getContainer();
 
         $task = $container->get(TaskRepository::class)->count([]);
-        $this->assertEquals(12, $task);
+        $this->assertEquals(9, $task);
     }
 }

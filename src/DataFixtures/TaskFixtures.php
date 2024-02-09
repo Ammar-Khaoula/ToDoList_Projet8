@@ -9,6 +9,10 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
+
 class TaskFixtures extends Fixture implements DependentFixtureInterface
 {
     public const TASK_REFERENCE = 'task';

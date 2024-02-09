@@ -23,7 +23,7 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $user = $userRepository->findOneByUsername('User2');
+        $user = $userRepository->findOneByUsername('User1');
 
         $client
             ->loginUser($user)
@@ -60,10 +60,10 @@ class UserControllerTest extends WebTestCase
         $client->submitForm(
             'Ajouter',
             [
-                'user[username]' => 'salim2',
+                'user[username]' => 'IlyesBHA',
                 'user[password][first]' => 'password',
                 'user[password][second]' => 'password',
-                'user[email]' => 'salim2@gmail.fr',
+                'user[email]' => 'ilyesbha@gmail.fr',
                 'user[roles]' => 'ROLE_USER'
             ]
         );
@@ -77,7 +77,7 @@ class UserControllerTest extends WebTestCase
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
         $Admin = $userRepository->findOneByUsername("Admin");
-        $User = $userRepository->findOneByUsername("User3");
+        $User = $userRepository->findOneByUsername("User22");
 
         $client
             ->loginUser($Admin)
@@ -86,10 +86,10 @@ class UserControllerTest extends WebTestCase
         $client->submitForm(
             'Modifier',
             [
-                'user[username]' => 'User33',
+                'user[username]' => 'User_2',
                 'user[password][first]' => 'password',
                 'user[password][second]' => 'password',
-                'user[email]' => 'user33@gmail.fr',
+                'user[email]' => 'user2@gmail.fr',
                 'user[roles]' => 'ROLE_USER'
             ]
         );
@@ -99,10 +99,10 @@ class UserControllerTest extends WebTestCase
         //get the user edited by his id
         $testUserEdited = $userRepository->find($User->getId());
         //confirm the email changed in the database
-        $this->assertNotNull($userRepository->findOneBy(['email' => 'user33@gmail.fr']));
+        $this->assertNotNull($userRepository->findOneBy(['email' => 'user2@gmail.fr']));
         //confirm the old email was deleted
-        $this->assertNull($userRepository->findOneBy(['email' => 'josephine.perez@bouygtel.']));
+        $this->assertNull($userRepository->findOneBy(['email' => 'user22@gmail.fr']));
         //confirm the new username
-        $this->assertSame('User33', $testUserEdited->getUsername());
+        $this->assertSame('User_2', $testUserEdited->getUsername());
     }
 }
