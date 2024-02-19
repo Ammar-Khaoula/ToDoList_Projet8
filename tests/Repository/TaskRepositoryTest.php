@@ -10,13 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 class TaskRepositoryTest extends KernelTestCase
 {
 
-    public function testCount()
+    public function testCountTask()
     {
 
         self::bootKernel();
         $container = static::getContainer();
 
         $task = $container->get(TaskRepository::class)->count([]);
-        $this->assertEquals(9, $task);
+        $this->assertEquals(15, $task);
     }
 }

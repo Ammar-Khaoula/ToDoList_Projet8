@@ -68,7 +68,7 @@ class TaskControllerTest extends WebTestCase
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
         $taskRepository = static::getContainer()->get(TaskRepository::class);
-        $user = $userRepository->findOneByUsername('dali');
+        $user = $userRepository->findOneByUsername('User6');
         //log a user
         $client
             ->loginUser($user)
@@ -77,14 +77,14 @@ class TaskControllerTest extends WebTestCase
         $client->submitForm(
             'Ajouter',
             [
-                'task[title]' => 'nouveau task',
-                'task[content]' => 'nouveau contenu Task'
+                'task[title]' => 'tache_Z',
+                'task[content]' => 'contenu de tache_Z'
             ]
         );
         $client->followRedirects();
         //Expected a redirection to tasks list
         $this->assertResponseRedirects('/tasks', 302);
-        $this->assertNotNull($taskRepository->findOneBy(['title' => 'nouveau task']));
+        $this->assertNotNull($taskRepository->findOneBy(['title' => 'tache_Z']));
     }
 
     public function testEditTask(): void
@@ -102,15 +102,15 @@ class TaskControllerTest extends WebTestCase
         $client->submitForm(
             'Modifier',
             [
-                'task[title]' => 'Task_3 modifier',
-                'task[content]' => 'content Task troi modifier'
+                'task[title]' => 'Task_A ',
+                'task[content]' => 'content Task modifier_2'
             ]
         );
         $client->followRedirects();
         //Expected a redirection to tasks list
         $this->assertResponseRedirects('/tasks', 302);
         $testTaskEdited = $taskRepository->find($task->getId());
-        $this->assertSame('Task_3 modifier', $testTaskEdited->getTitle());
+        $this->assertSame('Task_A', $testTaskEdited->getTitle());
         
     }
 
@@ -123,14 +123,10 @@ class TaskControllerTest extends WebTestCase
         $user = $userRepository->findOneByUsername('User4');
         //log a user
         $client->loginUser($user);
-        /*$testTask = $user->getTasks()->first();
-        $this->assertEquals(false, $testTask->isDone());*/
-        $client->request('GET', '/tasks/' . 35 . '/toggle');
+        $client->request('GET', '/tasks/' . 34 . '/toggle');
         $this->assertResponseRedirects('/tasks', Response::HTTP_FOUND);
         $client->followRedirect();
         $this->assertResponseIsSuccessful();
-        /*$testTask = $taskRepository->findOneById($testTask->getId());
-        $this->assertEquals(true, $testTask->isDone());*/
     }
 
     public function testDeleteTaskAuthorized(): void

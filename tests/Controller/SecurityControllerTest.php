@@ -56,5 +56,15 @@ class SecurityControllerTest extends WebTestCase
 
         return null;
     }
+
+
+    public function testLogoutPageRedirection(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/logout');
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+        $client->followRedirect();
+        $this->assertRouteSame('app_login');
+    }
     
 }

@@ -3,7 +3,7 @@
 namespace App\tests\Controller;
 
 use App\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\BrowserKit\Request;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
@@ -11,7 +11,7 @@ class UserControllerTest extends WebTestCase
     public function testListNoAuth(): void
     {
         $client = static::createClient();
-        $client->request(Request::METHOD_GET, '/users');
+        $client->request('GET', '/users');
         //expected a redirection
         $this->assertResponseRedirects();
         $client->followRedirect();
@@ -27,7 +27,7 @@ class UserControllerTest extends WebTestCase
 
         $client
             ->loginUser($user)
-            ->request(Request::METHOD_GET, '/users');
+            ->request('GET', '/users');
 
         $this->assertEquals(403, $client->getResponse()->getStatusCode());
     }
@@ -40,7 +40,7 @@ class UserControllerTest extends WebTestCase
 
         $client
             ->loginUser($user)
-            ->request(Request::METHOD_GET, '/users');
+            ->request('GET', '/users');
 
         //$this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertResponseIsSuccessful();
@@ -60,10 +60,10 @@ class UserControllerTest extends WebTestCase
         $client->submitForm(
             'Ajouter',
             [
-                'user[username]' => 'IlyesBHA',
+                'user[username]' => 'salma',
                 'user[password][first]' => 'password',
                 'user[password][second]' => 'password',
-                'user[email]' => 'ilyesbha@gmail.fr',
+                'user[email]' => 'salma@gmail.fr',
                 'user[roles]' => 'ROLE_USER'
             ]
         );
@@ -77,7 +77,7 @@ class UserControllerTest extends WebTestCase
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
         $Admin = $userRepository->findOneByUsername("Admin");
-        $User = $userRepository->findOneByUsername("User22");
+        $User = $userRepository->findOneByUsername("User2");
 
         $client
             ->loginUser($Admin)
@@ -86,10 +86,10 @@ class UserControllerTest extends WebTestCase
         $client->submitForm(
             'Modifier',
             [
-                'user[username]' => 'User_2',
+                'user[username]' => 'steve',
                 'user[password][first]' => 'password',
                 'user[password][second]' => 'password',
-                'user[email]' => 'user2@gmail.fr',
+                'user[email]' => 'steve@gmail.fr',
                 'user[roles]' => 'ROLE_USER'
             ]
         );
@@ -99,10 +99,27 @@ class UserControllerTest extends WebTestCase
         //get the user edited by his id
         $testUserEdited = $userRepository->find($User->getId());
         //confirm the email changed in the database
-        $this->assertNotNull($userRepository->findOneBy(['email' => 'user2@gmail.fr']));
+        $this->assertNotNull($userRepository->findOneBy(['email' => 'steve@gmail.fr']));
         //confirm the old email was deleted
         $this->assertNull($userRepository->findOneBy(['email' => 'user22@gmail.fr']));
         //confirm the new username
-        $this->assertSame('User_2', $testUserEdited->getUsername());
+        $this->assertSame('steve', $testUserEdited->getUsername());
+    }
+
+    public function testDeleteUser(): void
+    {
+        $client = static::createClient();
+
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $user = $userRepository->findOneByUsername("Admin");
+        $client->loginUser($user);
+
+        $client->request('POST', '/users/' . 33 . '/delete');
+      
+
+        $this->assertResponseRedirects();
+        $client->followRedirect();
+        $this->assertRouteSame('user_list');
+
     }
 }

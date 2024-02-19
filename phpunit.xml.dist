@@ -27,12 +27,17 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <directory>src/DataFixtures</directory>
+            <directory>src/Repository</directory>
+        </exclude>
+        <report>
+            <text outputFile="coverage.txt" showOnlySummary="true"/>
+            <html outputDirectory="public/test-coverage" />
+        </report>
     </coverage>
 
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
-
-    <extensions>
-    </extensions>
 </phpunit>

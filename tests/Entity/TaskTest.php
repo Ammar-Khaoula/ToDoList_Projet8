@@ -36,7 +36,27 @@ class TaskTest extends KernelTestCase
         $this->assertEquals(true, $task->getUser() instanceof User);
         $this->assertEquals(true, $task->getCreatedAt() instanceof DateTimeImmutable);
     }
-  /*  public function testvalidBlanktitle()
+
+    public function testValidateTask(): void
+    {
+        self::bootKernel();
+        $container = static::getContainer();
+
+        $task = $this->getTaskEntity();
+        $errors = $container->get('validator')->validate($task);
+        $this->assertCount(0, $errors);
+    }
+    public function testInvalidateTask(): void
+    {
+        self::bootKernel();
+        $container = static::getContainer();
+        $task = $this->getTaskEntity();
+        $task->setTitle('');
+        $errors = $container->get('validator')->validate($task);
+        $this->assertCount(1, $errors);
+    }
+
+    public function testvalidBlanktitle(): void
     {
         self::bootKernel();
         $container = static::getContainer();
@@ -44,9 +64,9 @@ class TaskTest extends KernelTestCase
         $task = $this->getTaskEntity();
        // $container($task->setContent(''), 1);
 
-        $task->setTitle('koukou');
+        $task->setTitle('tache_1');
 
         $errors = $container->get('validator')->validate($task);
         $this->assertCount(0, $errors);
-    }*/
+    }
 }
