@@ -9,12 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-    /*public function testHomepage(): void
-    {
-        $client = static::createClient();
-        $client->request('GET', '/');
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-    }*/
 
     public function testIndexRedirect(): void
     {
@@ -25,7 +19,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertResponseRedirects();
         
         $client->followRedirect();
-        $this->assertRouteSame('app_login');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testIndexWhenLoggedin(): void

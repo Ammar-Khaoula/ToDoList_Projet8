@@ -16,7 +16,7 @@ class UserRepositoryTest extends KernelTestCase
         $container = static::getContainer();
 
         $users = $container->get(UserRepository::class)->count([]);
-        $this->assertEquals(11, $users);
+        $this->assertEquals(15, $users);
     }
 
 

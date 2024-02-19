@@ -154,7 +154,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->tasks;
     }
-
+    
     public function addTask(Task $task): static
     {
         if (!$this->tasks->contains($task)) {
@@ -164,7 +164,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
+    
     public function removeTask(Task $task): static
     {
         if ($this->tasks->removeElement($task)) {
