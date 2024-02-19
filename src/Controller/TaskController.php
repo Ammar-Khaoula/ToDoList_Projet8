@@ -54,7 +54,7 @@ class TaskController extends AbstractController
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() and  $form->isValid()) {
+        if ($form->isSubmitted() &&  $form->isValid()) {
 
             $task->setUser($this->getUser());
             $task->toggle(false);
@@ -75,9 +75,8 @@ class TaskController extends AbstractController
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() and $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            //$em->persist($task);
             $em->flush();
             $this->addFlash('success', 'La tâche a bien été modifiée.');
 

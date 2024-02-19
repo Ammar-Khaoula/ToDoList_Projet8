@@ -30,7 +30,7 @@ class TaskVoter extends Voter
             return true;
         }
         // Tasks attached to the “anonymous” user can only be deleted by users with the administrator role (ROLE_ADMIN).
-        if ($user === $task->getUser() and $task->getUser() !== null){
+        if ($user === $task->getUser() && $task->getUser() !== null){
             return true;
         }
 
