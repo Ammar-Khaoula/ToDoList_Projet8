@@ -60,10 +60,10 @@ class UserControllerTest extends WebTestCase
         $client->submitForm(
             'Ajouter',
             [
-                'user[username]' => 'salma',
+                'user[username]' => 'loulou',
                 'user[password][first]' => 'password',
                 'user[password][second]' => 'password',
-                'user[email]' => 'salma@gmail.fr',
+                'user[email]' => 'loulou@gmail.fr',
                 'user[roles]' => 'ROLE_USER'
             ]
         );
@@ -77,7 +77,7 @@ class UserControllerTest extends WebTestCase
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
         $Admin = $userRepository->findOneByUsername("Admin");
-        $User = $userRepository->findOneByUsername("User2");
+        $User = $userRepository->findOneByUsername("alma");
 
         $client
             ->loginUser($Admin)
@@ -86,10 +86,10 @@ class UserControllerTest extends WebTestCase
         $client->submitForm(
             'Modifier',
             [
-                'user[username]' => 'steve',
+                'user[username]' => 'bilel',
                 'user[password][first]' => 'password',
                 'user[password][second]' => 'password',
-                'user[email]' => 'steve@gmail.fr',
+                'user[email]' => 'bilel@gmail.fr',
                 'user[roles]' => 'ROLE_USER'
             ]
         );
@@ -99,11 +99,11 @@ class UserControllerTest extends WebTestCase
         //get the user edited by his id
         $testUserEdited = $userRepository->find($User->getId());
         //confirm the email changed in the database
-        $this->assertNotNull($userRepository->findOneBy(['email' => 'steve@gmail.fr']));
+        $this->assertNotNull($userRepository->findOneBy(['email' => 'bilel@gmail.fr']));
         //confirm the old email was deleted
-        $this->assertNull($userRepository->findOneBy(['email' => 'user22@gmail.fr']));
+        $this->assertNull($userRepository->findOneBy(['email' => 'alma@gmail.fr']));
         //confirm the new username
-        $this->assertSame('steve', $testUserEdited->getUsername());
+        $this->assertSame('bilel', $testUserEdited->getUsername());
     }
 
     public function testDeleteUser(): void
@@ -114,7 +114,7 @@ class UserControllerTest extends WebTestCase
         $user = $userRepository->findOneByUsername("Admin");
         $client->loginUser($user);
 
-        $client->request('POST', '/users/' . 33 . '/delete');
+        $client->request('POST', '/users/' . 35 . '/delete');
       
 
         $this->assertResponseRedirects();

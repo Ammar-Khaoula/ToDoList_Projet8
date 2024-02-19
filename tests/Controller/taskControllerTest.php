@@ -77,14 +77,14 @@ class TaskControllerTest extends WebTestCase
         $client->submitForm(
             'Ajouter',
             [
-                'task[title]' => 'tache_Z',
-                'task[content]' => 'contenu de tache_Z'
+                'task[title]' => 'tache55',
+                'task[content]' => 'contenu de tache55'
             ]
         );
         $client->followRedirects();
         //Expected a redirection to tasks list
         $this->assertResponseRedirects('/tasks', 302);
-        $this->assertNotNull($taskRepository->findOneBy(['title' => 'tache_Z']));
+        $this->assertNotNull($taskRepository->findOneBy(['title' => 'tache55']));
     }
 
     public function testEditTask(): void
@@ -93,7 +93,7 @@ class TaskControllerTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $taskRepository = static::getContainer()->get(TaskRepository::class);
         $user = $userRepository->findOneByUsername('User9');
-        $task = $taskRepository->findOneByTitle("task_3");
+        $task = $taskRepository->findOneByTitle("task_web");
         //log a user       
         $client
             ->loginUser($user)
@@ -102,15 +102,15 @@ class TaskControllerTest extends WebTestCase
         $client->submitForm(
             'Modifier',
             [
-                'task[title]' => 'Task_A ',
-                'task[content]' => 'content Task modifier_2'
+                'task[title]' => 'Task_89',
+                'task[content]' => 'content Task_89'
             ]
         );
         $client->followRedirects();
         //Expected a redirection to tasks list
         $this->assertResponseRedirects('/tasks', 302);
         $testTaskEdited = $taskRepository->find($task->getId());
-        $this->assertSame('Task_A', $testTaskEdited->getTitle());
+        $this->assertSame('Task_89', $testTaskEdited->getTitle());
         
     }
 
