@@ -27,7 +27,7 @@ class TaskController extends AbstractController
             ]
         );
     }
-    
+
     #[Route('/tasksToDo', name: 'tasks_to_do')]
     public function tasksToDo(TaskRepository $taskRepository, UserRepository $userRepository): Response
     {
@@ -35,7 +35,7 @@ class TaskController extends AbstractController
             'tasks' => $taskRepository->findBy(['isDone' => false]),
             'users' => $userRepository->findAll()
         ]);
-    } 
+    }
 
     #[Route('/tasksCompleted', name: 'tasks_completed')]
     public function tasksCompleted(TaskRepository $taskRepository, UserRepository $userRepository): Response

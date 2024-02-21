@@ -32,7 +32,6 @@
             <directory>src/Repository</directory>
         </exclude>
         <report>
-            <clover outputFile="clover.xml"/>
             <text outputFile="coverage.txt" showOnlySummary="true"/>
             <html outputDirectory="public/test-coverage" />
         </report>
