@@ -6,7 +6,7 @@ Le wokflow git doit être utilisé lors de la contribution à des projets open s
 ## Comment contribuer au projet ?
 
 - Forkez le répertoire Github du projet
-- Suivez les instructions [Documentation](https://github.com/Ammar-Khaoula/ToDoList_Projet8?tab=readme-ov-file#installation) pour installer le projet
+- Suivez les [instructions](https://github.com/Ammar-Khaoula/ToDoList_Projet8?tab=readme-ov-file#installation) pour installer le projet
 - Créer une nouvelle branche git:
 ```bash
   git checkout -b new-branch
